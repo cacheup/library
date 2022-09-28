@@ -42,3 +42,11 @@ function displayLibrary() {
     library.appendChild(book);
   }
 }
+
+const newBookBtn = document.querySelector('.new-book');
+newBookBtn.addEventListener('click', displayForm);
+
+function displayForm() {
+  const form = document.querySelector('form');
+  form.classList.toggle('hidden');
+}
