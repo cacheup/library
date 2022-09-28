@@ -25,28 +25,47 @@ displayLibrary();
 
 function displayLibrary() {
   for (const aBook of myLibrary) {
-    const book = document.createElement('div');
-    book.classList.add('book');
-    const title = document.createElement('p');
-    title.textContent = aBook.title;
-    book.appendChild(title);
-    const author = document.createElement('p');
-    author.textContent = aBook.author;
-    book.appendChild(author);
-    const pages = document.createElement('p');
-    pages.textContent = `${aBook.pages} pages`;
-    book.appendChild(pages);
-    const isRead = document.createElement('p');
-    isRead.textContent = aBook.isRead ? "read" : "not read";
-    book.appendChild(isRead);
-    library.appendChild(book);
+    displayBook(aBook);
   }
+}
+
+function displayBook(aBook) {
+  const book = document.createElement('div');
+  book.classList.add('book');
+  const title = document.createElement('p');
+  title.textContent = aBook.title;
+  book.appendChild(title);
+  const author = document.createElement('p');
+  author.textContent = aBook.author;
+  book.appendChild(author);
+  const pages = document.createElement('p');
+  pages.textContent = `${aBook.pages} pages`;
+  book.appendChild(pages);
+  const isRead = document.createElement('p');
+  isRead.textContent = aBook.isRead ? "read" : "not read";
+  book.appendChild(isRead);
+  library.appendChild(book);
 }
 
 const newBookBtn = document.querySelector('.new-book');
 newBookBtn.addEventListener('click', displayForm);
+const form = document.querySelector('form');
 
 function displayForm() {
-  const form = document.querySelector('form');
-  form.classList.toggle('hidden');
+  form.classList.remove('hidden');
+}
+
+form.addEventListener('submit', addBook);
+
+function addBook(event) {
+  event.preventDefault();
+  form.classList.add('hidden');
+  const formData = new FormData(form);
+  const title = formData.get('title');
+  const author = formData.get('author');
+  const pages = formData.get('pages');
+  const isRead = formData.get('isRead');
+  const book = new Book(title, author, pages , isRead);
+  addBookToLibrary(book);
+  displayBook(book);
 }
