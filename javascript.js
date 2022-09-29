@@ -24,14 +24,20 @@ addBookToLibrary(book4);
 displayLibrary();
 
 function displayLibrary() {
-  for (const aBook of myLibrary) {
-    displayBook(aBook);
+  for (let i = 0; i < myLibrary.length; i++) {
+    displayBook(myLibrary[i], i);
   }
 }
 
-function displayBook(aBook) {
+function displayBook(aBook, index) {
   const book = document.createElement('div');
   book.classList.add('book');
+  book.setAttribute('id', `${index}`);
+  const removeBookBtn = document.createElement('button');
+  removeBookBtn.classList.add('remove');
+  removeBookBtn.textContent = "remove";
+  removeBookBtn.addEventListener('click', removeBook);
+  book.appendChild(removeBookBtn);
   const title = document.createElement('p');
   title.textContent = aBook.title;
   book.appendChild(title);
@@ -65,7 +71,15 @@ function addBook(event) {
   const author = formData.get('author');
   const pages = formData.get('pages');
   const isRead = formData.get('isRead');
-  const book = new Book(title, author, pages , isRead);
+  const book = new Book(title, author, pages, isRead);
   addBookToLibrary(book);
-  displayBook(book);
+  displayBook(book, myLibrary.length - 1);
+}
+
+function removeBook(event) {
+  const index = event.target.parentElement.getAttribute('id');
+  myLibrary.splice(index, 1);
+  const books = document.querySelectorAll('.book');
+  books.forEach(book => book.remove());
+  displayLibrary();
 }
