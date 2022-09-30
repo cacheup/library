@@ -7,6 +7,10 @@ function Book(title, author, pages, isRead) {
   this.isRead = isRead;
 }
 
+Book.prototype.changeReadStatus = function() {
+  this.isRead = !this.isRead;
+}
+
 function addBookToLibrary(Book) {
   myLibrary.push(Book);
 }
@@ -47,9 +51,10 @@ function displayBook(aBook, index) {
   const pages = document.createElement('p');
   pages.textContent = `${aBook.pages} pages`;
   book.appendChild(pages);
-  const isRead = document.createElement('p');
-  isRead.textContent = aBook.isRead ? "read" : "not read";
-  book.appendChild(isRead);
+  const isReadBtn = document.createElement('button');
+  isReadBtn.textContent = aBook.isRead ? "read" : "not read";
+  isReadBtn.addEventListener('click', changeReadStatus);
+  book.appendChild(isReadBtn);
   library.appendChild(book);
 }
 
@@ -82,4 +87,15 @@ function removeBook(event) {
   const books = document.querySelectorAll('.book');
   books.forEach(book => book.remove());
   displayLibrary();
+}
+
+function changeReadStatus(event) {
+  const index = event.target.parentElement.getAttribute('id');
+  myLibrary[index].changeReadStatus;
+  if(myLibrary[index].isRead) {
+    event.target.textContent = "read";
+  }
+  else {
+    event.target.textContent = "not read";
+  }
 }
