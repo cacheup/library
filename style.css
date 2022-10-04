@@ -20,13 +20,14 @@ body {
   height: 600px;
   width: 1200px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   grid-template-rows: repeat(3, 1fr);
   position: relative;
   border-radius: 6px;
   background-color: #2dd4bf;
   padding: 15px;
   grid-gap: 18px;
+  overflow: auto;
 }
 
 .library, .new-book {
@@ -58,9 +59,24 @@ form {
   left: 25%;
   width: 600px;
   height: 300px;
-  border: 1px solid black;
-  background-color: white;
-  padding: 10px;
+  border: 2px solid #13434a;
+  background-color: #f0fdfa;
+  padding: 5px 10px 10px 10px;
+  border-radius: 4px;
+}
+div > label {
+  display: inline-block;
+  width: 80px;
+}
+
+div > input {
+  margin-bottom: 15px;
+  border: 2px solid #13434a;
+  border-radius: 4px;
+}
+
+fieldset {
+  margin-bottom: 15px;
 }
 
 input, button {
@@ -68,8 +84,77 @@ input, button {
   font-size: 100%;
 }
 
+form div span {
+  position: relative;
+}
+
+form div span::after {
+  position: absolute;
+  content: "required";
+  font-size: 0.75rem;
+  top: -18px;
+  left: -50px;
+  color: white;
+  background-color: #13434a;
+  padding: 1px 2px;
+}
+
+form div input + span::before {
+  position: absolute;
+
+}
+
+form div input:invalid {
+  border: 2px solid red;
+}
+
+form div input:valid + span:before {
+  content: '✓';
+  color: green;
+}
+
+form div input:invalid + span:before {
+  content: '✖';
+  color: red;
+}
+
+fieldset + span {
+  position: relative;
+}
+
+fieldset + span::after {
+  position: absolute;
+  content: "required";
+  font-size: 0.75rem;
+  top: -74px;
+  right: -577px;
+  color: white;
+  background-color: #13434a;
+  padding: 1px 2px;
+}
+
 .hidden {
   display: none;
+}
+
+.close {
+  margin-left: 303px;
+  color: slategrey;
+  background-color: inherit;
+  border-radius: 25%;
+  border-style: none;
+  padding-top: 3px;
+  width: 20px;
+  height: 26px;
+}
+
+.close:hover {
+  background-color: rgb(184, 191, 199);
+}
+
+h2 {
+  display: inline-block;
+  margin-bottom: 5px;
 }
 
 .remove {
@@ -104,12 +189,12 @@ svg {
   pointer-events: none;
 }
 
-.new-book {
+.new-book, .add-book {
   padding: 3px 6px;
   border-color: #13434a;
   border-radius: 4px;
 }
 
-.new-book:hover {
+.new-book:hover, .add-book:hover {
   background-color: rgb(212, 209, 209);
 }

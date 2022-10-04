@@ -17,12 +17,6 @@ function addBookToLibrary(Book) {
 
 const library = document.querySelector('.library');
 
-for(let i = 0; i < 10; i++) {
-  const book = new Book(`book${i+1}`, `author${i+1}`, i+1, true);
-  addBookToLibrary(book);
-}
-displayLibrary();
-
 function displayLibrary() {
   for (let i = 0; i < myLibrary.length; i++) {
     displayBook(myLibrary[i], i);
@@ -70,6 +64,13 @@ function displayBook(aBook, index) {
 const newBookBtn = document.querySelector('.new-book');
 newBookBtn.addEventListener('click', displayForm);
 const form = document.querySelector('form');
+
+const closeFormBtn = document.querySelector('.close');
+closeFormBtn.addEventListener('click', closeForm);
+
+function closeForm() {
+  form.classList.add('hidden');
+}
 
 function displayForm() {
   form.classList.remove('hidden');
