@@ -17,14 +17,10 @@ function addBookToLibrary(Book) {
 
 const library = document.querySelector('.library');
 
-const book1 = new Book("book1", "author1", 1, true);
-addBookToLibrary(book1);
-const book2 = new Book("book2", "author2", 2, false);
-addBookToLibrary(book2);
-const book3 = new Book("book3", "author3", 3, false);
-addBookToLibrary(book3);
-const book4 = new Book("book4", "author4", 4, true);
-addBookToLibrary(book4);
+for(let i = 0; i < 10; i++) {
+  const book = new Book(`book${i+1}`, `author${i+1}`, i+1, true);
+  addBookToLibrary(book);
+}
 displayLibrary();
 
 function displayLibrary() {
@@ -39,7 +35,8 @@ function displayBook(aBook, index) {
   book.setAttribute('id', `${index}`);
   const removeBookBtn = document.createElement('button');
   removeBookBtn.classList.add('remove');
-  removeBookBtn.textContent = "remove";
+  removeBookBtn.setAttribute('aria-label', 'remove');
+  removeBookBtn.textContent = "✖";
   removeBookBtn.addEventListener('click', removeBook);
   book.appendChild(removeBookBtn);
   const title = document.createElement('p');
@@ -52,7 +49,19 @@ function displayBook(aBook, index) {
   pages.textContent = `${aBook.pages} pages`;
   book.appendChild(pages);
   const isReadBtn = document.createElement('button');
-  isReadBtn.textContent = aBook.isRead ? "read" : "not read";
+  isReadBtn.classList.add('read-status');
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', 'M0.41,13.41L6,19L7.41,17.58L1.83,12M22.24,5.58L11.66,16.17L7.5,12L6.07,13.41L11.66,19L23.66,7M18,7L16.59,5.58L10.24,11.93L11.66,13.34L18,7Z');
+  svg.appendChild(path);
+  isReadBtn.appendChild(svg); 
+  if(aBook.isRead) {
+    isReadBtn.classList.add('read');
+  }
+  else {
+    isReadBtn.classList.remove('read');
+  }
   isReadBtn.addEventListener('click', changeReadStatus);
   book.appendChild(isReadBtn);
   library.appendChild(book);
@@ -91,11 +100,6 @@ function removeBook(event) {
 
 function changeReadStatus(event) {
   const index = event.target.parentElement.getAttribute('id');
-  myLibrary[index].changeReadStatus;
-  if(myLibrary[index].isRead) {
-    event.target.textContent = "read";
-  }
-  else {
-    event.target.textContent = "not read";
-  }
+  myLibrary[index].changeReadStatus();
+  event.target.classList.toggle('read');
 }
