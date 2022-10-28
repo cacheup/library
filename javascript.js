@@ -85,7 +85,8 @@ function addBook(event) {
   const title = formData.get('title');
   const author = formData.get('author');
   const pages = formData.get('pages');
-  const isRead = formData.get('isRead');
+  let isRead = formData.get('isRead');
+  isRead = (isRead == 'true') ? true : false;
   const book = new Book(title, author, pages, isRead);
   addBookToLibrary(book);
   displayBook(book, myLibrary.length - 1);
