@@ -1,14 +1,19 @@
 let myLibrary = [];
 
-function Book(title, author, pages, isRead) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
-}
-
-Book.prototype.changeReadStatus = function() {
-  this.isRead = !this.isRead;
+class Book {
+  title;
+  author;
+  pages;
+  isRead;
+  constructor(title, author, pages, isRead) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
+  }
+  changeReadStatus() {
+    this.isRead = !this.isRead;
+  }
 }
 
 function addBookToLibrary(Book) {
