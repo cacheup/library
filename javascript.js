@@ -1,14 +1,19 @@
 let myLibrary = [];
 
-function Book(title, author, pages, isRead) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
-}
-
-Book.prototype.changeReadStatus = function() {
-  this.isRead = !this.isRead;
+class Book {
+  title;
+  author;
+  pages;
+  isRead;
+  constructor(title, author, pages, isRead) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
+  }
+  changeReadStatus() {
+    this.isRead = !this.isRead;
+  }
 }
 
 function addBookToLibrary(Book) {
@@ -85,7 +90,8 @@ function addBook(event) {
   const title = formData.get('title');
   const author = formData.get('author');
   const pages = formData.get('pages');
-  const isRead = formData.get('isRead');
+  let isRead = formData.get('isRead');
+  isRead = (isRead == 'true') ? true : false;
   const book = new Book(title, author, pages, isRead);
   addBookToLibrary(book);
   displayBook(book, myLibrary.length - 1);
