@@ -1,6 +1,6 @@
 # library
 This webpage displays a simple library.  
-Makes use of Javascript objects and object constructors.  
+Makes use of Javascript ~~objects and object constructors~~ class.  
 It contains a button, which brings up a form, to add a book to the library.  
 The form makes use of pseudo-elements to indicate required, valid, and invalid input fields.  
 CSS Flexbox is used to center the library.  
